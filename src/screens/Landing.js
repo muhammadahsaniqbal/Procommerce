@@ -4,6 +4,7 @@ import {
     Text,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { Navigation } from 'react-native-navigation';
 
 const styles = EStyleSheet.create({
     root: {
@@ -16,10 +17,36 @@ const styles = EStyleSheet.create({
 
 class Landing extends Component {
 
+    componentDidMount() {
+        setTimeout(() => {
+            this.moveToHomeScreen()
+        }, 1000);
+    }
+
+
+    moveToHomeScreen() {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'Home',
+                options: {
+                    popGesture: false,
+                    topBar: {
+                        title: {
+                            text: 'Home'
+                        },
+                        backButton: {
+                            visible: false
+                        }
+                    }
+                }
+            }
+        })
+    }
+
     render() {
         return (
             <View style={styles.root}>
-                <Text>Landing Screen</Text>
+                <Text>Welcome to Procommerce</Text>
             </View>
         );
     }
