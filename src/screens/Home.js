@@ -22,7 +22,8 @@ const styles = EStyleSheet.create({
         backgroundColor: theme.$themeScreenBackgroundColor
     },
     product_container: {
-        // alignItems: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
         width: '45%',
         marginHorizontal: 10,
         marginVertical: 10,
@@ -31,8 +32,13 @@ const styles = EStyleSheet.create({
         borderColor: theme.$themeNavyBlueColor,
         backgroundColor: theme.$themeWhiteColor
     },
+    product_text_icon_container: {
+
+    },
     product_icon_container: {
-        alignItems: 'center' 
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center'
     },
     product_icon: {
         margin: 5,
@@ -40,8 +46,15 @@ const styles = EStyleSheet.create({
         height: 50
     },
     product_title: {
+        flex: 1,
         margin: 5,
         fontSize: '0.8rem',
+        color: theme.$themeNavyBlueColor,
+    },
+    price_title: {
+        margin: 5,
+        fontSize: '0.8rem',
+        fontWeight: "bold",
         color: theme.$themeNavyBlueColor,
     }
 });
@@ -53,16 +66,18 @@ class Home extends Component {
     }
 
     renderProductItem(item) {
+        let priceWithCurrency = '$ ' + item.price
         return (
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
                 }}
                 style={styles.product_container}>
+                <Text numberOfLines={5} style={styles.product_title}>{item.title}</Text>
                 <View style={styles.product_icon_container}>
                     <Image style={styles.product_icon} source={{ uri: item.image }} />
+                    <Text numberOfLines={1} style={styles.price_title}>{priceWithCurrency}</Text>
                 </View>
-                <Text numberOfLines={2} style={styles.product_title}>{item.title}</Text>
             </TouchableOpacity>
         )
     }
