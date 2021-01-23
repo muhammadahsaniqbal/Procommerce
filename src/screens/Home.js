@@ -5,6 +5,7 @@ import {
     Image,
     FlatList,
     TouchableOpacity,
+    ActivityIndicator,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -20,6 +21,16 @@ const styles = EStyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: theme.$themeScreenBackgroundColor
+    },
+    spinner: {
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
     product_container: {
         flexDirection: 'row',
@@ -70,6 +81,31 @@ class Home extends Component {
         this.props.homeActions.getProducts();
     }
 
+    showProductDetails = (selectedProduct) => {
+        Navigation.showModal({
+            stack: {
+                children: [{
+                    component: {
+                        name: 'ProductDetails',
+                        passProps: {
+                            selectedProduct,
+                        },
+                        options: {
+                            topBar: {
+                                title: {
+                                    text: 'Details',
+                                    color: theme.$themeWhiteColor
+                                },
+                                background: { color: theme.$themeNavyBlueColor },
+                            },
+                        },
+                    },
+                },
+                ],
+            },
+        });
+    }
+
     renderEmptyList() {
         return (
             <View style={styles.root}>
@@ -78,12 +114,27 @@ class Home extends Component {
         )
     }
 
+    renderSpinner = () => {
+        const { home } = this.props;
+
+        if (home.fetching) {
+            return (
+                <View style={styles.spinner}>
+                    <ActivityIndicator size="large" color={theme.$themeNavyBlueColor} />
+                </View>
+            );
+        }
+
+        return null;
+    };
+
     renderProductItem(item) {
         let priceWithCurrency = '$ ' + item.price
         return (
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={() => {
+                    this.showProductDetails(item)
                 }}
                 style={styles.product_container}>
                 <Text numberOfLines={5} style={styles.product_title}>{item.title}</Text>
@@ -111,6 +162,7 @@ class Home extends Component {
                     renderItem={({ index, item }) => this.renderProductItem(item)}
                 // onEndReached={() => this.handleLoadMore()}
                 />
+                {this.renderSpinner()}
             </View>
         );
     }

@@ -4,6 +4,7 @@ import Home from './screens/Home';
 import Landing from './screens/Landing';
 import Profile from './screens/Profile';
 import Notification from './components/Notification';
+import ProductDetails from './screens/ProductDetails';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -25,6 +26,12 @@ export default function registerScreens(store, Provider) {
             <Profile {...props} />
         </Provider>,
         () => Profile);
+
+    Navigation.registerComponent(`ProductDetails`, () => (props) =>
+        <Provider store={store}>
+            <ProductDetails {...props} />
+        </Provider>,
+        () => ProductDetails);
 
     Navigation.registerComponent(`Notification`, () => (props) =>
         <Provider store={store}>
