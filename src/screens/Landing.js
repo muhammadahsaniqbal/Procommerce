@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
+    Image,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Navigation } from 'react-native-navigation';
@@ -41,8 +41,10 @@ class Landing extends Component {
                                             popGesture: false,
                                             topBar: {
                                                 title: {
-                                                    text: 'Home'
+                                                    text: 'Home',
+                                                    color: '#fff'
                                                 },
+                                                background: { color: '#800000'},
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -56,7 +58,7 @@ class Landing extends Component {
                                     icon: require('../assets/tabs/home.png'),
                                     iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
                                     iconColor: '#acacac',
-                                    selectedIconColor: '#000000'
+                                    selectedIconColor: '#ffff00'
                                 },
                             }
                         }
@@ -73,8 +75,10 @@ class Landing extends Component {
                                             popGesture: false,
                                             topBar: {
                                                 title: {
-                                                    text: 'Profile'
+                                                    text: 'Profile',
+                                                    color: '#fff'
                                                 },
+                                                background: { color: '#800000'},
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -88,7 +92,7 @@ class Landing extends Component {
                                     icon: require('../assets/tabs/profile.png'),
                                     iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
                                     iconColor: '#acacac',
-                                    selectedIconColor: '#000000'
+                                    selectedIconColor: '#ffff00'
                                 },
                             }
                         }
@@ -99,7 +103,7 @@ class Landing extends Component {
                         visible: false
                     },
                     bottomTabs: {
-                        backgroundColor: '#dddddd',
+                        backgroundColor: '#800000',
                         animate: true
                     },
                 },
@@ -110,7 +114,7 @@ class Landing extends Component {
     render() {
         return (
             <View style={styles.root}>
-                <Text>Welcome to Procommerce</Text>
+                <Image source={require('../assets/landing/procommerce_logo.png')}></Image>
             </View>
         );
     }

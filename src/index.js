@@ -92,7 +92,6 @@ class App extends React.Component {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <View style={styles.root}>
-            {/* <Image style={styles.bg_image} source={require('./assets/common/margo_express_logo.png')}></Image> */}
           </View>
         </PersistGate>
       </Provider>
