@@ -58,7 +58,7 @@ class Landing extends Component {
                             options: {
                                 bottomTab: {
                                     icon: require('../assets/tabs/home.png'),
-                                    iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
+                                    iconInsets: { top: 25, left: 0, bottom: -20, right: 0 },
                                     iconColor: theme.$themeWhiteColor,
                                     selectedIconColor: theme.$selectedTabColor
                                 },
@@ -92,7 +92,7 @@ class Landing extends Component {
                             options: {
                                 bottomTab: {
                                     icon: require('../assets/tabs/profile.png'),
-                                    iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
+                                    iconInsets: { top: 25, left: 0, bottom: -20, right: 0 },
                                     iconColor: theme.$themeWhiteColor,
                                     selectedIconColor: theme.$selectedTabColor
                                 },
