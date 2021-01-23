@@ -5,12 +5,14 @@ import {
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Navigation } from 'react-native-navigation';
+import theme from '../config/theme';
 
 const styles = EStyleSheet.create({
     root: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: theme.$themeScreenBackgroundColor
     },
 });
 
@@ -42,9 +44,9 @@ class Landing extends Component {
                                             topBar: {
                                                 title: {
                                                     text: 'Home',
-                                                    color: '#fff'
+                                                    color: theme.$themeWhiteColor
                                                 },
-                                                background: { color: '#800000'},
+                                                background: { color: theme.$themeNavyBlueColor},
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -57,8 +59,8 @@ class Landing extends Component {
                                 bottomTab: {
                                     icon: require('../assets/tabs/home.png'),
                                     iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
-                                    iconColor: '#acacac',
-                                    selectedIconColor: '#ffff00'
+                                    iconColor: theme.$themeWhiteColor,
+                                    selectedIconColor: theme.$selectedTabColor
                                 },
                             }
                         }
@@ -76,9 +78,9 @@ class Landing extends Component {
                                             topBar: {
                                                 title: {
                                                     text: 'Profile',
-                                                    color: '#fff'
+                                                    color: theme.$themeWhiteColor
                                                 },
-                                                background: { color: '#800000'},
+                                                background: { color: theme.$themeNavyBlueColor},
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -91,8 +93,8 @@ class Landing extends Component {
                                 bottomTab: {
                                     icon: require('../assets/tabs/profile.png'),
                                     iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
-                                    iconColor: '#acacac',
-                                    selectedIconColor: '#ffff00'
+                                    iconColor: theme.$themeWhiteColor,
+                                    selectedIconColor: theme.$selectedTabColor
                                 },
                             }
                         }
@@ -103,7 +105,7 @@ class Landing extends Component {
                         visible: false
                     },
                     bottomTabs: {
-                        backgroundColor: '#800000',
+                        backgroundColor: theme.$themeNavyBlueColor,
                         animate: true
                     },
                 },

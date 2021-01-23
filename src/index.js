@@ -5,7 +5,7 @@ import {
   Dimensions,
   View,
   Platform,
-  Image,
+  StatusBar,
   StyleSheet,
 } from 'react-native';
 import { persistStore } from 'redux-persist';
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'whitesmoke'
+    backgroundColor: theme.$themeScreenBackgroundColor
   },
   bg_image: {
     height: '10%',
@@ -87,6 +87,7 @@ class App extends React.Component {
   }
 
   render() {
+    StatusBar.setBarStyle('light-content', true);
     const persistor = persistStore(store, {}, () => this.moveToLandingScreen(Platform.OS === 'ios' ? 0 : 1500));
     return (
       <Provider store={store}>

@@ -10,11 +10,20 @@ import { connect } from 'react-redux';
 import theme from '../config/theme';
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
+const styles = EStyleSheet.create({
+    root: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: theme.$themeScreenBackgroundColor
+    },
+});
+
 class Home extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.root}>
                 <Text>Home</Text>
             </View>
         );
