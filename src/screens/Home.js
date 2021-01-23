@@ -56,13 +56,26 @@ const styles = EStyleSheet.create({
         fontSize: '0.8rem',
         fontWeight: "bold",
         color: theme.$themeNavyBlueColor,
-    }
+    },
+    empty_list_text: {
+        fontWeight: "bold",
+        fontSize: 18,
+        color: theme.$themeNavyBlueColor
+    },
 });
 
 class Home extends Component {
 
     componentDidMount() {
         this.props.homeActions.getProducts();
+    }
+
+    renderEmptyList() {
+        return (
+            <View style={styles.root}>
+                <Text style={styles.empty_list_text}>No products available!</Text>
+            </View>
+        )
     }
 
     renderProductItem(item) {
@@ -93,7 +106,8 @@ class Home extends Component {
                     removeClippedSubviews
                     initialNumToRender={20}
                     numColumns={2}
-                    // ListEmptyComponent={<EmptyList />}
+                    ListEmptyComponent={this.renderEmptyList()}
+                    contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ index, item }) => this.renderProductItem(item)}
                 // onEndReached={() => this.handleLoadMore()}
                 />
