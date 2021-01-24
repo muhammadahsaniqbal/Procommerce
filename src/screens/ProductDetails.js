@@ -3,7 +3,8 @@ import {
     View,
     Text,
     Image,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -49,6 +50,32 @@ const styles = EStyleSheet.create({
         fontSize: '0.8rem',
         color: theme.$themeNavyBlueColor,
     },
+    footer_container: {
+        width: '100%',
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    add_cart_button: {
+        flexDirection: 'row',
+        backgroundColor: theme.$themeNavyBlueColor,
+        height: 45,
+        borderRadius: 22,
+        marginHorizontal: 20,
+        paddingHorizontal: 20,
+        marginBottom: 20,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    add_cart_button_title: {
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        color: theme.$themeWhiteColor,
+    },
+    product_price_button_title: {
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        color: theme.$selectedTabColor,
+    },
 });
 
 class ProductDetails extends Component {
@@ -77,6 +104,10 @@ class ProductDetails extends Component {
         }
     }
 
+    addToCart() {
+
+    }
+
     render() {
         let product = this.props.selectedProduct
         return (
@@ -89,6 +120,17 @@ class ProductDetails extends Component {
                 </View>
                 <View style={styles.product_description_container}>
                     <Text style={styles.product_description}>{product.description}</Text>
+                </View>
+                <View style={styles.footer_container}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                            this.addToCart()
+                        }}
+                        style={styles.add_cart_button}>
+                        <Text style={styles.add_cart_button_title}>Add to Cart</Text>
+                        <Text style={styles.product_price_button_title}>$ {product.price}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );

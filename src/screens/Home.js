@@ -43,9 +43,6 @@ const styles = EStyleSheet.create({
         borderColor: theme.$themeNavyBlueColor,
         backgroundColor: theme.$themeWhiteColor
     },
-    product_text_icon_container: {
-
-    },
     product_icon_container: {
         flex: 1,
         flexDirection: 'column',
@@ -57,7 +54,7 @@ const styles = EStyleSheet.create({
         height: 50
     },
     product_title: {
-        flex: 1,
+        flex: 1.4,
         margin: 5,
         fontSize: '0.8rem',
         color: theme.$themeNavyBlueColor,
