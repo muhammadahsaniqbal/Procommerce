@@ -4,6 +4,8 @@ import {
     Image,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import theme from '../config/theme';
 
@@ -46,7 +48,7 @@ class Landing extends Component {
                                                     text: 'Home',
                                                     color: theme.$themeWhiteColor
                                                 },
-                                                background: { color: theme.$themeNavyBlueColor},
+                                                background: { color: theme.$themeNavyBlueColor },
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -58,9 +60,44 @@ class Landing extends Component {
                             options: {
                                 bottomTab: {
                                     icon: require('../assets/tabs/home.png'),
-                                    iconInsets: { top: 25, left: 0, bottom: -20, right: 0 },
+                                    iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
                                     iconColor: theme.$themeWhiteColor,
                                     selectedIconColor: theme.$selectedTabColor
+                                },
+                            }
+                        }
+                    },
+                    {
+                        stack: {
+                            id: 'CART_TAB',
+                            children: [
+                                {
+                                    component: {
+                                        id: 'CART_SCREEN',
+                                        name: 'Cart',
+                                        options: {
+                                            popGesture: false,
+                                            topBar: {
+                                                title: {
+                                                    text: 'Cart',
+                                                    color: theme.$themeWhiteColor
+                                                },
+                                                background: { color: theme.$themeNavyBlueColor },
+                                                backButton: {
+                                                    visible: false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            options: {
+                                bottomTab: {
+                                    icon: require('../assets/tabs/cart.png'),
+                                    iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
+                                    iconColor: theme.$themeWhiteColor,
+                                    selectedIconColor: theme.$selectedTabColor,
+                                    badge: this.props.cart.products.length?.toString(),
                                 },
                             }
                         }
@@ -80,7 +117,7 @@ class Landing extends Component {
                                                     text: 'Profile',
                                                     color: theme.$themeWhiteColor
                                                 },
-                                                background: { color: theme.$themeNavyBlueColor},
+                                                background: { color: theme.$themeNavyBlueColor },
                                                 backButton: {
                                                     visible: false
                                                 }
@@ -92,7 +129,7 @@ class Landing extends Component {
                             options: {
                                 bottomTab: {
                                     icon: require('../assets/tabs/profile.png'),
-                                    iconInsets: { top: 25, left: 0, bottom: -20, right: 0 },
+                                    iconInsets: { top: 20, left: 0, bottom: -20, right: 0 },
                                     iconColor: theme.$themeWhiteColor,
                                     selectedIconColor: theme.$selectedTabColor
                                 },
@@ -121,4 +158,8 @@ class Landing extends Component {
         );
     }
 }
-export default Landing;
+export default connect(
+    state => ({
+        cart: state.cart
+    }),
+)(Landing);

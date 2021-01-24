@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
         case ADD_TO_CART:
             return {
                 ...state,
-                products: state.products.push(action.payload),
+                products: action.payload,
             };
         default:
             return state

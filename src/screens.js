@@ -5,6 +5,7 @@ import Landing from './screens/Landing';
 import Profile from './screens/Profile';
 import Notification from './components/Notification';
 import ProductDetails from './screens/ProductDetails';
+import Cart from './screens/Cart';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -20,6 +21,12 @@ export default function registerScreens(store, Provider) {
             <Home {...props} />
         </Provider>,
         () => Home);
+
+    Navigation.registerComponent(`Cart`, () => (props) =>
+        <Provider store={store}>
+            <Cart {...props} />
+        </Provider>,
+        () => Cart);
 
     Navigation.registerComponent(`Profile`, () => (props) =>
         <Provider store={store}>

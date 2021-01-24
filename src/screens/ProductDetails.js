@@ -114,8 +114,18 @@ class ProductDetails extends Component {
     }
 
     addToCart() {
-        const { cartActions, selectedProduct } = this.props;
-        cartActions.addToCart(selectedProduct)
+        const { cart, cartActions, selectedProduct } = this.props;
+
+        var products = cart.products;
+        products = products.concat(selectedProduct)
+        cartActions.updateCart(products)
+        setTimeout(() => {
+            Navigation.mergeOptions('CART_SCREEN', {
+                bottomTab: {
+                    badge: cart.products.length?.toString(),
+                },
+            });
+        }, 500);
     }
 
     render() {
