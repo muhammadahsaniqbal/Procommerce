@@ -93,7 +93,7 @@ class Home extends Component {
                         options: {
                             topBar: {
                                 title: {
-                                    text: 'Details',
+                                    text: selectedProduct.category,
                                     color: theme.$themeWhiteColor
                                 },
                                 background: { color: theme.$themeNavyBlueColor },
