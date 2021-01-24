@@ -11,7 +11,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import theme from '../config/theme';
-import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+
+import * as cartActions from '../actions/cartActions';
 
 const dimensions = Dimensions.get('window');
 
@@ -113,7 +114,8 @@ class ProductDetails extends Component {
     }
 
     addToCart() {
-
+        const { cartActions, selectedProduct } = this.props;
+        cartActions.addToCart(selectedProduct)
     }
 
     render() {
@@ -145,4 +147,11 @@ class ProductDetails extends Component {
     }
 
 }
-export default ProductDetails;
+export default connect(
+    state => ({
+        cart: state.cart
+    }),
+    dispatch => ({
+        cartActions: bindActionCreators(cartActions, dispatch),
+    })
+)(ProductDetails);
