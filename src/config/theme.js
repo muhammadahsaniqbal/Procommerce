@@ -10,4 +10,6 @@ export default {
     $themeScreenBackgroundColor: '#F0F6FC',
     // Tab colors
     $selectedTabColor: '#FFFF00',
+    // shadow color
+    $cardShadowColor: '#00000029',
 };

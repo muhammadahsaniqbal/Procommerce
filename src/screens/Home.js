@@ -33,7 +33,6 @@ const styles = EStyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
     product_container: {
-        flexDirection: 'row',
         alignItems: 'center',
         width: '45%',
         marginHorizontal: 10,
@@ -41,21 +40,34 @@ const styles = EStyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         borderColor: theme.$themeNavyBlueColor,
-        backgroundColor: theme.$themeWhiteColor
+        backgroundColor: theme.$themeWhiteColor,
+        elevation: 2,
+        shadowColor: theme.$cardShadowColor,
+        shadowOffset: {
+            width: 1,
+            height: 3,
+        },
+        shadowOpacity: 5,
+        shadowRadius: 5,
     },
     product_icon_container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center'
+        width: '100%',
+        height: 70,
     },
     product_icon: {
-        margin: 5,
-        width: 50,
-        height: 50
+        width: '100%',
+        height: '90%',
+        resizeMode: 'contain',
+        marginTop: 5,
+    },
+    text_container: {
+        width: '100%',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
     product_title: {
-        flex: 1.4,
-        margin: 5,
+        marginHorizontal: 5,
+        marginBottom: 5,
         fontSize: '0.8rem',
         color: theme.$themeNavyBlueColor,
     },
@@ -134,10 +146,13 @@ class Home extends Component {
                     this.showProductDetails(item)
                 }}
                 style={styles.product_container}>
-                <Text numberOfLines={5} style={styles.product_title}>{item.title}</Text>
+
                 <View style={styles.product_icon_container}>
                     <Image style={styles.product_icon} source={{ uri: item.image }} />
+                </View>
+                <View style={styles.text_container}>
                     <Text numberOfLines={1} style={styles.price_title}>{priceWithCurrency}</Text>
+                    <Text numberOfLines={2} style={styles.product_title}>{item.title}</Text>
                 </View>
             </TouchableOpacity>
         )

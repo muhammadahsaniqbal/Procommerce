@@ -24,7 +24,14 @@ const styles = EStyleSheet.create({
     product_image_container: {
         width: '100%',
         height: dimensions.width * 0.5,
-        backgroundColor: theme.$themeWhiteColor
+        backgroundColor: theme.$themeWhiteColor,
+        shadowColor: theme.$cardShadowColor,
+        shadowOffset: {
+            width: 1,
+            height: 3,
+        },
+        shadowOpacity: 5,
+        shadowRadius: 5,
     },
     product_image: {
         width: '100%',
@@ -36,7 +43,8 @@ const styles = EStyleSheet.create({
         alignItems: 'center',
     },
     product_title: {
-        margin: 10,
+        marginHorizontal: 10,
+        marginVertical: 20,
         fontSize: '1.2rem',
         fontWeight: "bold",
         color: theme.$themeNavyBlueColor,
