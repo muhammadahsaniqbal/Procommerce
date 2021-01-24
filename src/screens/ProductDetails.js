@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import theme from '../config/theme';
 
 import * as cartActions from '../actions/cartActions';
+import { OPENED_VIA_HOME } from '../constants';
 
 const dimensions = Dimensions.get('window');
 
@@ -128,6 +129,26 @@ class ProductDetails extends Component {
         }, 500);
     }
 
+    renderFooter() {
+        let product = this.props.selectedProduct
+        if (this.props.openedVia == OPENED_VIA_HOME) {
+            return (
+                <View style={styles.footer_container}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                            this.addToCart()
+                        }}
+                        style={styles.add_cart_button}>
+                        <Text style={styles.add_cart_button_title}>Add to Cart</Text>
+                        <Text style={styles.product_price_button_title}>$ {product.price}</Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
+        return null;
+    }
+
     render() {
         let product = this.props.selectedProduct
         return (
@@ -141,17 +162,7 @@ class ProductDetails extends Component {
                 <View style={styles.product_description_container}>
                     <Text style={styles.product_description}>{product.description}</Text>
                 </View>
-                <View style={styles.footer_container}>
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        onPress={() => {
-                            this.addToCart()
-                        }}
-                        style={styles.add_cart_button}>
-                        <Text style={styles.add_cart_button_title}>Add to Cart</Text>
-                        <Text style={styles.product_price_button_title}>$ {product.price}</Text>
-                    </TouchableOpacity>
-                </View>
+                {this.renderFooter()}
             </View>
         );
     }

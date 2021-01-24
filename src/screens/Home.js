@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import theme from '../config/theme';
 
 import * as homeActions from '../actions/homeActions';
+import { OPENED_VIA_HOME } from '../constants';
 
 const styles = EStyleSheet.create({
     root: {
@@ -98,6 +99,7 @@ class Home extends Component {
                         name: 'ProductDetails',
                         passProps: {
                             selectedProduct,
+                            openedVia: OPENED_VIA_HOME
                         },
                         options: {
                             topBar: {
