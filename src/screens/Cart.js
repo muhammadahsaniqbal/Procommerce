@@ -120,13 +120,11 @@ class Cart extends Component {
         var idx = products.findIndex(p => p.id==product.id);
         products.splice(idx,1);
         cartActions.updateCart(products, false)
-        setTimeout(() => {
-            Navigation.mergeOptions('CART_SCREEN', {
-                bottomTab: {
-                    badge: cart.products.length?.toString(),
-                },
-            });
-        }, 500);
+        Navigation.mergeOptions('CART_SCREEN', {
+            bottomTab: {
+                badge: products.length.toString(),
+            },
+        });
     }
 
     renderEmptyList() {

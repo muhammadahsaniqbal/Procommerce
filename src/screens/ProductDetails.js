@@ -120,13 +120,11 @@ class ProductDetails extends Component {
         var products = cart.products;
         products = products.concat(selectedProduct)
         cartActions.updateCart(products, true)
-        setTimeout(() => {
-            Navigation.mergeOptions('CART_SCREEN', {
-                bottomTab: {
-                    badge: cart.products.length?.toString(),
-                },
-            });
-        }, 500);
+        Navigation.mergeOptions('CART_SCREEN', {
+            bottomTab: {
+                badge: products.length.toString(),
+            },
+        });
     }
 
     renderFooter() {
