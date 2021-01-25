@@ -39,8 +39,6 @@ const styles = EStyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 10,
         borderRadius: 5,
-        borderWidth: 1,
-        borderColor: theme.$themeNavyBlueColor,
         backgroundColor: theme.$themeWhiteColor,
         elevation: 2,
         shadowColor: theme.$cardShadowColor,

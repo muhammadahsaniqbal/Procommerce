@@ -119,7 +119,7 @@ class ProductDetails extends Component {
 
         var products = cart.products;
         products = products.concat(selectedProduct)
-        cartActions.updateCart(products)
+        cartActions.updateCart(products, true)
         setTimeout(() => {
             Navigation.mergeOptions('CART_SCREEN', {
                 bottomTab: {

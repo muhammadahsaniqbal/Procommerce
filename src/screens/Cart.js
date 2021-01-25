@@ -23,6 +23,7 @@ const styles = EStyleSheet.create({
         backgroundColor: theme.$themeScreenBackgroundColor
     },
     product_container: {
+        flexDirection: 'row',
         alignItems: 'center',
         marginHorizontal: 10,
         marginVertical: 10,
@@ -40,8 +41,8 @@ const styles = EStyleSheet.create({
         shadowRadius: 5,
     },
     product_icon_container: {
-        width: '100%',
-        height: 70,
+        width: '30%',
+        aspectRatio: 1
     },
     product_icon: {
         width: '100%',
@@ -49,21 +50,32 @@ const styles = EStyleSheet.create({
         resizeMode: 'contain',
         marginTop: 5,
     },
-    text_container: {
-        width: '100%',
-        alignItems: 'center',
+    right_container: {
+        width: '70%',
+        height: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
+    close_button_container: {
+        width: 25,
+        height: 25,
+        top: 5,
+        right: 5,
+        position: 'absolute',
+    },
     product_title: {
-        marginHorizontal: 5,
+        marginTop: 25,
         marginBottom: 5,
+        marginHorizontal: 5,
         fontSize: '0.8rem',
+        alignSelf: 'center',
         color: theme.$themeNavyBlueColor,
     },
     price_title: {
-        margin: 5,
+        marginTop: 10,
+        marginHorizontal: 5,
         fontSize: '0.8rem',
         fontWeight: "bold",
+        alignSelf: 'center',
         color: theme.$themeNavyBlueColor,
     },
     empty_list_text: {
@@ -101,6 +113,22 @@ class Cart extends Component {
         });
     }
 
+    removeFromCart(product) {
+        const { cart, cartActions } = this.props;
+
+        var products = cart.products;
+        var idx = products.findIndex(p => p.id==product.id);
+        products.splice(idx,1);
+        cartActions.updateCart(products, false)
+        setTimeout(() => {
+            Navigation.mergeOptions('CART_SCREEN', {
+                bottomTab: {
+                    badge: cart.products.length?.toString(),
+                },
+            });
+        }, 500);
+    }
+
     renderEmptyList() {
         return (
             <View style={styles.root}>
@@ -122,9 +150,17 @@ class Cart extends Component {
                 <View style={styles.product_icon_container}>
                     <Image style={styles.product_icon} source={{ uri: item.image }} />
                 </View>
-                <View style={styles.text_container}>
+                <View style={styles.right_container}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => {
+                            this.removeFromCart(item)
+                        }}
+                        style={styles.close_button_container}>
+                        <Image style={{tintColor: 'black'}} source={require('../assets/common/close.png')}></Image>
+                    </TouchableOpacity>
                     <Text numberOfLines={1} style={styles.price_title}>{priceWithCurrency}</Text>
-                    <Text numberOfLines={2} style={styles.product_title}>{item.title}</Text>
+                    <Text numberOfLines={3} style={styles.product_title}>{item.title}</Text>
                 </View>
             </TouchableOpacity>
         )

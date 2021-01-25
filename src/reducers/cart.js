@@ -1,5 +1,5 @@
 import {
-    ADD_TO_CART,
+    UPDATE_CART,
 } from '../constants';
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case ADD_TO_CART:
+        case UPDATE_CART:
             return {
                 ...state,
                 products: action.payload,
