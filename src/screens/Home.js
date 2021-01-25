@@ -145,7 +145,7 @@ class Home extends Component {
 
     handleLoadMore = () => {
         
-        if (this.props.home.fetching)
+        if (this.props.home.fetching || this.props.home.lastPage)
             return;
         
         let { pageIndex } = this.state;

@@ -13,3 +13,4 @@ export const OPENED_VIA_CART = 'OPENED_VIA_CART';
 export const OPENED_VIA_HOME = 'OPENED_VIA_HOME';
 
 export const PRODUCTS_PAGE_SIZE = 20;
+export const TOTAL_PRODUCTS_COUNT = 100;

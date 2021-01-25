@@ -3,11 +3,13 @@ import {
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_FAILURE,
     LOAD_MORE_PRODUCTS,
+    TOTAL_PRODUCTS_COUNT,
 } from '../constants';
 
 const initialState = {
     products: [],
     fetching: false,
+    lastPage: false,
     lazyFetching: false,
 };
 
@@ -25,9 +27,11 @@ export default function (state = initialState, action) {
             }
         case FETCH_PRODUCTS_SUCCESS:
             let fetchedProducts = action.payload;
+            let updatedProducts = action.isAdd ? state.products.concat(fetchedProducts): fetchedProducts;
             return {
                 ...state,
-                products: action.isAdd ? state.products.concat(fetchedProducts): fetchedProducts,
+                products: updatedProducts,
+                lastPage: updatedProducts.length >= TOTAL_PRODUCTS_COUNT,
                 fetching: false,
                 lazyFetching: false
             };
