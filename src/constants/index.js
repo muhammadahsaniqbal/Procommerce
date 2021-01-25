@@ -2,6 +2,7 @@ export const FLASH_ALERT_TYPE_ERROR = 'error';
 export const FLASH_ALERT_TYPE_SUCCESS = 'success';
 export const FLASH_ALERT_TYPE_INFO = 'info';
 
+export const LOAD_MORE_PRODUCTS = "LOAD_MORE_PRODUCTS";
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
@@ -10,3 +11,5 @@ export const UPDATE_CART = 'UPDATE_CART';
 
 export const OPENED_VIA_CART = 'OPENED_VIA_CART';
 export const OPENED_VIA_HOME = 'OPENED_VIA_HOME';
+
+export const PRODUCTS_PAGE_SIZE = 20;

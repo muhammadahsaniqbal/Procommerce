@@ -33,6 +33,11 @@ const styles = EStyleSheet.create({
         position: 'absolute',
         backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
+    lazySpinner: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
+    },
     product_container: {
         alignItems: 'center',
         width: '45%',
@@ -85,6 +90,24 @@ const styles = EStyleSheet.create({
 
 class Home extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pageIndex: 1,
+            refreshing: false,
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if (prevState.refreshing && !nextProps.home.fetching) {
+            return {
+                refreshing: false,
+            };
+        }
+    }
+
     componentDidMount() {
         this.props.homeActions.getProducts();
     }
@@ -115,6 +138,22 @@ class Home extends Component {
         });
     }
 
+    loadFromStart() {
+        this.setState({ pageIndex: 1, refreshing: true });
+        this.props.homeActions.getProducts();
+    }
+
+    handleLoadMore = () => {
+        
+        if (this.props.home.fetching)
+            return;
+        
+        let { pageIndex } = this.state;
+        pageIndex += 1;
+        this.props.homeActions.getProducts(pageIndex);
+        this.setState({ pageIndex });
+    }
+
     renderEmptyList() {
         return (
             <View style={styles.root}>
@@ -126,10 +165,24 @@ class Home extends Component {
     renderSpinner = () => {
         const { home } = this.props;
 
-        if (home.fetching) {
+        if (home.fetching && !this.state.refreshing) {
             return (
                 <View style={styles.spinner}>
                     <ActivityIndicator size="large" color={theme.$themeNavyBlueColor} />
+                </View>
+            );
+        }
+
+        return null;
+    };
+
+    renderLazySpinner = () => {
+        const { home } = this.props;
+
+        if (home.lazyFetching) {
+            return (
+                <View style={styles.lazySpinner}>
+                    <ActivityIndicator size='small' color={theme.$themeNavyBlueColor} />
                 </View>
             );
         }
@@ -167,14 +220,17 @@ class Home extends Component {
                     data={products}
                     keyExtractor={(item, index) => index.toString()}
                     removeClippedSubviews
-                    initialNumToRender={20}
                     numColumns={2}
                     ListEmptyComponent={this.renderEmptyList()}
                     contentContainerStyle={{ flexGrow: 1 }}
                     renderItem={({ index, item }) => this.renderProductItem(item)}
-                // onEndReached={() => this.handleLoadMore()}
+                    onEndReached={this.handleLoadMore}
+                    onEndReachedThreshold={.7}
+                    onRefresh={() => this.loadFromStart()}
+                    refreshing={this.state.refreshing && this.props.home.fetching}
                 />
                 {this.renderSpinner()}
+                {this.renderLazySpinner()}
             </View>
         );
     }

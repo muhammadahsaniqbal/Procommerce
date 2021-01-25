@@ -4,19 +4,22 @@ import {
     FETCH_PRODUCTS_SUCCESS,
     FETCH_PRODUCTS_FAILURE,
     FLASH_ALERT_TYPE_ERROR,
+    PRODUCTS_PAGE_SIZE,
+    LOAD_MORE_PRODUCTS,
 } from '../constants';
 import { showFlashAlert } from '../utils';
 
-export function getProducts() {
+export function getProducts(pageIndex = 1) {
 
     return (dispatch) => {
-        dispatch({ type: FETCH_PRODUCTS_REQUEST });
+        pageIndex === 1 ? dispatch({ type: FETCH_PRODUCTS_REQUEST }) : dispatch({ type: LOAD_MORE_PRODUCTS })
 
-        return Api.get(`/products`)
+        return Api.get(`/products?limit=${PRODUCTS_PAGE_SIZE}`)
             .then((response) => {
                 dispatch({
                     type: FETCH_PRODUCTS_SUCCESS,
                     payload: response.data,
+                    isAdd: pageIndex !== 1,
                 });
             })
             .catch((error) => {
