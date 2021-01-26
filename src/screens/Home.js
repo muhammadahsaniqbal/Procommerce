@@ -15,6 +15,9 @@ import theme from '../config/theme';
 import { HorizontalCategoryList } from '../components/HorizontalCategoryList';
 import * as homeActions from '../actions/homeActions';
 import { OPENED_VIA_HOME } from '../constants';
+import AsyncStorage from '@react-native-community/async-storage';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+var PushNotification = require("react-native-push-notification");
 
 const styles = EStyleSheet.create({
     root: {
@@ -109,6 +112,68 @@ class Home extends Component {
         }
     }
 
+    // MARK: - Push Notification delegate methods
+
+    notification = () => {
+
+        PushNotification.configure({
+            onRegister: function (token) {
+
+                console.log("DEVICE_TOKEN:", token);
+
+                if (token === null || token === undefined) {
+                    return
+                }
+
+                //Store device token in storage.
+                AsyncStorage.setItem('DEVICE_TOKEN', token.token)
+            },
+
+            // (required) Called when a remote is received or opened, or local notification is opened
+            onNotification: function (notification) {
+                console.log("NOTIFICATION:", notification);
+
+                // process the notification
+
+                // (required) Called when a remote is received or opened, or local notification is opened
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+
+            // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)
+            onAction: function (notification) {
+                console.log("ACTION:", notification.action);
+                console.log("NOTIFICATION:", notification);
+
+                // process the action
+            },
+
+            // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
+            onRegistrationError: function (err) {
+                console.error(err.message, err);
+            },
+
+            // IOS ONLY (optional): default: all - Permissions to register.
+            permissions: {
+                alert: true,
+                badge: true,
+                sound: true,
+            },
+
+            // Should the initial notification be popped automatically
+            // default: true
+            popInitialNotification: true,
+
+            /**
+             * (optional) default: true
+             * - Specified if permissions (ios) and token (android and ios) will requested or not,
+             * - if not, you must call PushNotificationsHandler.requestPermissions() later
+             * - if you are not using remote notification or do not have Firebase installed, use this:
+             *     requestPermissions: Platform.OS === 'ios'
+             */
+            requestPermissions: true,
+        });
+    }
+
     componentDidMount() {
         this.props.homeActions.getCategories().then(categoryTitles => {
             if (categoryTitles) {
@@ -124,6 +189,7 @@ class Home extends Component {
             }
         });
         this.props.homeActions.getProducts();
+        this.notification();
     }
 
     showProductDetails = (selectedProduct) => {
