@@ -23,6 +23,7 @@ export function getCategories() {
                     type: FETCH_CATEGORIES_SUCCESS,
                     payload: response.data,
                 });
+                return response.data;
             })
             .catch((error) => {
                 console.log(error)
@@ -31,16 +32,17 @@ export function getCategories() {
                     type: FETCH_CATEGORIES_FAILURE,
                     payload: error.response.data,
                 });
+                return null;
             });
     };
 }
 
-export function getProducts(pageIndex = 1) {
+export function getProducts(pageIndex = 1, category = null) {
 
     return (dispatch) => {
         pageIndex === 1 ? dispatch({ type: FETCH_PRODUCTS_REQUEST }) : dispatch({ type: LOAD_MORE_PRODUCTS })
-
-        return Api.get(`/products?limit=${PRODUCTS_PAGE_SIZE}`)
+        let url = category ? `/products/category/${category}` : `/products?limit=${PRODUCTS_PAGE_SIZE}` 
+        return Api.get(`${url}`)
             .then((response) => {
                 dispatch({
                     type: FETCH_PRODUCTS_SUCCESS,

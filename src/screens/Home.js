@@ -96,6 +96,7 @@ class Home extends Component {
         this.state = {
             pageIndex: 1,
             refreshing: false,
+            categories: []
         }
     }
 
@@ -109,7 +110,19 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.homeActions.getCategories();
+        this.props.homeActions.getCategories().then(categoryTitles => {
+            if (categoryTitles) {
+                var categories = []
+                categoryTitles.forEach((title) => {
+                    let category = {
+                        title: title,
+                        selected: false
+                    }
+                    categories.push(category)
+                })
+                this.setState({ categories: categories });
+            }
+        });
         this.props.homeActions.getProducts();
     }
 
@@ -139,32 +152,38 @@ class Home extends Component {
         });
     }
 
+    getSelectedCategory() {
+        var selectedCategories = this.state.categories.filter((category) => category.selected)
+        return selectedCategories.length > 0 ? selectedCategories[0].title : null
+    }
+
     loadFromStart() {
         this.setState({ pageIndex: 1, refreshing: true });
-        this.props.homeActions.getProducts();
+        this.props.homeActions.getProducts(1, this.getSelectedCategory());
     }
 
     handleLoadMore = () => {
 
-        if (this.props.home.fetching || this.props.home.lastPage)
+        if (this.props.home.fetching || this.props.home.lastPage || this.getSelectedCategory())
             return;
 
         let { pageIndex } = this.state;
         pageIndex += 1;
-        this.props.homeActions.getProducts(pageIndex);
+        this.props.homeActions.getProducts(pageIndex, this.getSelectedCategory());
         this.setState({ pageIndex });
     }
 
     changeCategory(category) {
 
-        // this.state.categories.map((item) => {
-        //   if (item != category)
-        //     item.selected = false
-        // })
-        // category.selected = !category.selected
-        // this.loadFromStart();
-    
-      }
+        this.state.categories.forEach((item) => {
+            if (item.title !== category.title) {
+                item.selected = false
+            }
+        })
+        category.selected = !category.selected
+        this.loadFromStart();
+
+    }
 
     renderEmptyList() {
         return (
@@ -226,11 +245,10 @@ class Home extends Component {
     render() {
         const { home } = this.props;
         let products = home.products;
-        let categories = home.categories;
         return (
             <View style={styles.root}>
                 <HorizontalCategoryList
-                    categories={categories}
+                    categories={this.state.categories}
                     changeCategory={(item) => this.changeCategory(item)}
                 />
                 <FlatList

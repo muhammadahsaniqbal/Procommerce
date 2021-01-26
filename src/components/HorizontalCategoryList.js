@@ -29,11 +29,26 @@ const styles = EStyleSheet.create({
         borderWidth: 1,
         borderColor: theme.$themeNavyBlueColor,
     },
+    category_container_selected: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 5,
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: theme.$themeWhiteColor,
+        backgroundColor: theme.$themeNavyBlueColor,
+    },
     category_title: {
         marginHorizontal: 10,
         fontSize: '0.8rem',
         fontWeight: "bold",
         color: theme.$themeNavyBlueColor,
+    },
+    category_title_selected: {
+        marginHorizontal: 10,
+        fontSize: '0.8rem',
+        fontWeight: "bold",
+        color: theme.$themeWhiteColor,
     },
 })
 
@@ -46,9 +61,9 @@ export class HorizontalCategoryList extends Component {
 
     renderCategoryItem(item) {
         return (
-            <TouchableOpacity style={styles.category_container}
+            <TouchableOpacity style={item.selected ? styles.category_container_selected : styles.category_container}
                 onPress={() => this.props.changeCategory(item)}>
-                <Text numberOfLines={1} style={styles.category_title}>{item}</Text>
+                <Text numberOfLines={1} style={item.selected ? styles.category_title_selected : styles.category_title}>{item.title}</Text>
             </TouchableOpacity>
         );
     }
