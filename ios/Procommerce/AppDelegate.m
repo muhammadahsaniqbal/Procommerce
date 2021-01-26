@@ -34,6 +34,10 @@ static void InitializeFlipper(UIApplication *application) {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
   
+  [[RCTI18nUtil sharedInstance] allowRTL:YES];
+
+  [[RCTI18nUtil sharedInstance] forceRTL:YES];
+  
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

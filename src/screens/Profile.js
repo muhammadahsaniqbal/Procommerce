@@ -3,7 +3,9 @@ import {
     View,
     Text,
     Image,
+    Linking,
     FlatList,
+    I18nManager,
     TouchableOpacity
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
@@ -11,7 +13,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import theme from '../config/theme';
-import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+import * as profileActions from '../actions/profileActions';
 
 const styles = EStyleSheet.create({
     root: {
@@ -20,7 +22,7 @@ const styles = EStyleSheet.create({
         justifyContent: 'center',
         backgroundColor: theme.$themeScreenBackgroundColor
     },
-    product_container: {
+    option_container: {
         alignItems: 'center',
         width: '45%',
         marginHorizontal: 10,
@@ -31,11 +33,11 @@ const styles = EStyleSheet.create({
         borderWidth: 1,
         borderColor: theme.$themeNavyBlueColor,
     },
-    product_icon_container: {
+    option_icon_container: {
         width: '100%',
         height: 70,
     },
-    product_icon: {
+    option_icon: {
         width: '100%',
         height: '90%',
         resizeMode: 'contain',
@@ -49,7 +51,7 @@ const styles = EStyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.1)'
     },
-    product_title: {
+    option_title: {
         marginHorizontal: 5,
         fontSize: '0.8rem',
         fontWeight: "bold",
@@ -89,15 +91,18 @@ class Profile extends Component {
     }
 
     handleRTL() {
-        alert('Toggle RTL selected')
+        let isRTL = this.props.profile.isRTL
+        console.log('Toggle RTL'+this.props.profile.isRTL)
+        this.props.profileActions.updateRtl(!isRTL);
+        I18nManager.forceRTL(!isRTL);
     }
 
     handleNotification() {
-        alert('Enable Notification selected')
+        Linking.openURL('app-settings://notification/Procommerce');
     }
 
     handleLocation() {
-        alert('Enable Location selected')
+        Linking.openURL('app-settings://');
     }
 
     handleAddresses() {
@@ -111,13 +116,13 @@ class Profile extends Component {
                 onPress={() => {
                     item.action()
                 }}
-                style={styles.product_container}>
+                style={styles.option_container}>
 
-                <View style={styles.product_icon_container}>
-                    <Image style={styles.product_icon} source={item.icon} />
+                <View style={styles.option_icon_container}>
+                    <Image style={styles.option_icon} source={item.icon} />
                 </View>
                 <View style={styles.text_container}>
-                    <Text numberOfLines={1} style={styles.product_title}>{item.title}</Text>
+                    <Text numberOfLines={1} style={styles.option_title}>{item.title}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -140,4 +145,12 @@ class Profile extends Component {
     }
 
 }
-export default Profile;
+
+export default connect(
+    state => ({
+        profile: state.profile
+    }),
+    dispatch => ({
+        profileActions: bindActionCreators(profileActions, dispatch),
+    })
+)(Profile);
