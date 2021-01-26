@@ -12,7 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import theme from '../config/theme';
-
+import { HorizontalCategoryList } from '../components/HorizontalCategoryList';
 import * as homeActions from '../actions/homeActions';
 import { OPENED_VIA_HOME } from '../constants';
 
@@ -109,6 +109,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.props.homeActions.getCategories();
         this.props.homeActions.getProducts();
     }
 
@@ -144,15 +145,26 @@ class Home extends Component {
     }
 
     handleLoadMore = () => {
-        
+
         if (this.props.home.fetching || this.props.home.lastPage)
             return;
-        
+
         let { pageIndex } = this.state;
         pageIndex += 1;
         this.props.homeActions.getProducts(pageIndex);
         this.setState({ pageIndex });
     }
+
+    changeCategory(category) {
+
+        // this.state.categories.map((item) => {
+        //   if (item != category)
+        //     item.selected = false
+        // })
+        // category.selected = !category.selected
+        // this.loadFromStart();
+    
+      }
 
     renderEmptyList() {
         return (
@@ -212,9 +224,15 @@ class Home extends Component {
     }
 
     render() {
-        let products = this.props.home.products;
+        const { home } = this.props;
+        let products = home.products;
+        let categories = home.categories;
         return (
             <View style={styles.root}>
+                <HorizontalCategoryList
+                    categories={categories}
+                    changeCategory={(item) => this.changeCategory(item)}
+                />
                 <FlatList
                     style={{}}
                     data={products}
