@@ -48,6 +48,8 @@ Known issues are mentioned at the end.
 - Used https://fakestoreapi.com/
 
 ## Notes / Known Issues
+- RTL toggle is implemented but couldn't enforce without app reload
 - Deep linking is not handled (Open a deeplink from outside the app will open the app and redirect user to product detail screen)
 - User location is retrieved in Address Listing screen but not passed to Map View screen.
 - Map View screen is pending.
+- Tested on iOS Simulator only. Mobile capabilities such as notifications & location have been properly configured for iOS but not tested for Android.
