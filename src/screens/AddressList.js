@@ -10,6 +10,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import theme from '../config/theme';
+import RNLocation from 'react-native-location';
 import * as addressActions from '../actions/addressActions';
 
 const styles = EStyleSheet.create({
@@ -81,6 +82,17 @@ const styles = EStyleSheet.create({
 
 class AddressList extends Component {
 
+    static sharedGeoCoordinates = {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.0051,
+        longitudeDelta: 0.0051,
+    }
+
+    componentDidMount() {
+        this.findCoordinates();
+    }
+
     showAddressDetails = (selectedAddress) => {
         Navigation.showModal({
             stack: {
@@ -104,6 +116,63 @@ class AddressList extends Component {
                 ],
             },
         });
+    }
+
+    findCoordinates() {
+
+        RNLocation.configure({
+            distanceFilter: 5.0,
+            desiredAccuracy: {
+                ios: "best",
+                android: "balancedPowerAccuracy"
+            },
+
+            // Android only
+            androidProvider: "auto",
+            interval: 5000,
+            fastestInterval: 10000,
+            maxWaitTime: 5000,
+
+            // iOS Only
+            activityType: "other",
+            allowsBackgroundLocationUpdates: false,
+            headingFilter: 1,
+            headingOrientation: "portrait",
+            pausesLocationUpdatesAutomatically: false,
+            showsBackgroundLocationIndicator: false,
+        })
+
+        RNLocation.requestPermission({
+            ios: "always",
+            android: {
+                detail: "fine"
+            }
+        }).then(granted => {
+            if (granted) {
+
+                RNLocation.getLatestLocation({ timeout: 60000 })
+                    .then(location => {
+
+                        if (!location) {
+                            return
+                        }
+
+                        const latitude = location.latitude
+                        const longitude = location.longitude
+
+                        AddressList.sharedGeoCoordinates.latitude = latitude
+                        AddressList.sharedGeoCoordinates.longitude = longitude
+
+                        this.state.region.latitude = latitude
+                        this.state.region.longitude = longitude
+
+                        const region = {
+                            latitude: latitude,
+                            longitude: longitude
+                        }
+                    })
+            }
+        })
     }
 
     addAddress() {

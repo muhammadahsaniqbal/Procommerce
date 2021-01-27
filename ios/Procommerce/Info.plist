@@ -38,7 +38,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>This app requires access to location for saving address</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires access to location for saving address</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires access to location for saving address</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
