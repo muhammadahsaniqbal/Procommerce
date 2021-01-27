@@ -53,4 +53,4 @@ Known issues are mentioned at the end.
 - User location is retrieved in Address Listing screen but not passed to Map View screen.
 - Map View screen is pending.
 - Tested on iOS Simulator only. Mobile capabilities such as notifications & location have been properly configured for iOS but not tested for Android.
-- App logo updated only for iOS.
+- App icon updated only for iOS.
