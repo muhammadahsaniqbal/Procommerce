@@ -13,6 +13,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import theme from '../config/theme';
+import RNRestart from 'react-native-restart';
 import * as profileActions from '../actions/profileActions';
 
 const styles = EStyleSheet.create({
@@ -95,6 +96,7 @@ class Profile extends Component {
         console.log('Toggle RTL'+this.props.profile.isRTL)
         this.props.profileActions.updateRtl(!isRTL);
         I18nManager.forceRTL(!isRTL);
+        RNRestart.Restart();
     }
 
     handleNotification() {
