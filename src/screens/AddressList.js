@@ -176,7 +176,27 @@ class AddressList extends Component {
     }
 
     addAddress() {
-        
+        Navigation.showModal({
+            stack: {
+                children: [{
+                    component: {
+                        name: 'MapView',
+                        passProps: {
+                        },
+                        options: {
+                            topBar: {
+                                title: {
+                                    text: 'Map View',
+                                    color: theme.$themeWhiteColor
+                                },
+                                background: { color: theme.$themeNavyBlueColor },
+                            },
+                        },
+                    },
+                },
+                ],
+            },
+        });
     }
 
     renderEmptyList() {
