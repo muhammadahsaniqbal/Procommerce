@@ -7,6 +7,7 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
+  LogBox,
 } from 'react-native';
 import { persistStore } from 'redux-persist';
 import { Navigation } from 'react-native-navigation';
@@ -64,6 +65,9 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+
+    LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+    LogBox.ignoreAllLogs();//Ignore all log notifications
   }
 
   moveToLandingScreen = (delay) => {
