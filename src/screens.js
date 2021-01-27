@@ -6,6 +6,7 @@ import Profile from './screens/Profile';
 import Notification from './components/Notification';
 import ProductDetails from './screens/ProductDetails';
 import Cart from './screens/Cart';
+import AddressList from './screens/AddressList';
 
 // register all screens of the app (including internal ones)
 export default function registerScreens(store, Provider) {
@@ -39,6 +40,12 @@ export default function registerScreens(store, Provider) {
             <ProductDetails {...props} />
         </Provider>,
         () => ProductDetails);
+
+    Navigation.registerComponent(`AddressList`, () => (props) =>
+        <Provider store={store}>
+            <AddressList {...props} />
+        </Provider>,
+        () => AddressList);
 
     Navigation.registerComponent(`Notification`, () => (props) =>
         <Provider store={store}>

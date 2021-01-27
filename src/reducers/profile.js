@@ -1,4 +1,4 @@
-import { UPDATE_RTL, DIRECTION_ARABIC } from '../constants';
+import { UPDATE_RTL } from '../constants';
 
 const initialState = {
     isRTL: false,

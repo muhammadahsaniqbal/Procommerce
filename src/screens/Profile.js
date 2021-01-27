@@ -106,7 +106,24 @@ class Profile extends Component {
     }
 
     handleAddresses() {
-        alert('Addresses selected')
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'AddressList',
+                options: {
+                    topBar: {
+                        title: {
+                            text: 'Address List',
+                            color: theme.$themeWhiteColor
+                        },
+                        background: { color: theme.$themeNavyBlueColor },
+                        backButton: {
+                            title: '',
+                            color: theme.$themeWhiteColor
+                        }
+                    }
+                },
+            }
+        })
     }
 
     renderOption(item) {
