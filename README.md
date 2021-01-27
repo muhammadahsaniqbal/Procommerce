@@ -1,5 +1,9 @@
 # Procommerce
-A simple e-commerce react native app
+A simple e-commerce react native app.
+
+Following is list of features and components. Implemented features are marked with checked boxes and incomplete ones with un-checked boxes.
+
+Known issues are mentioned at the end.
 
 ## Foundation
 - [x] First time app open, ask user to allow notification
@@ -42,3 +46,8 @@ A simple e-commerce react native app
 - Used RN CLI
 - Used javascript
 - Used https://fakestoreapi.com/
+
+## Notes / Known Issues
+- Deep linking is not handled (Open a deeplink from outside the app will open the app and redirect user to product detail screen)
+- User location is retrieved in Address Listing screen but not passed to Map View screen.
+- Map View screen is pending.
